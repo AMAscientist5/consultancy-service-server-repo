@@ -19,6 +19,16 @@ const client = new MongoClient(uri, {
 
 async function run() {
   try {
+    const serviceCollection = client
+      .db("aradunVisaConsultancy")
+      .collection("services");
+
+    app.get("/limit-services", async (req, res) => {
+      const query = {};
+      const cursor = serviceCollection.find(query);
+      const services = await cursor.limit(3).toArray();
+      res.send(services);
+    });
   } finally {
   }
 }
