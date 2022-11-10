@@ -64,6 +64,12 @@ async function run() {
       const service = await reviews.findOne(query);
       res.send(service);
     });
+
+    app.post("/reviews", async (req, res) => {
+      const order = req.body;
+      const result = await reviews.insertOne(order);
+      res.send(result);
+    });
   } finally {
   }
 }
